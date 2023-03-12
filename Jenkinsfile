@@ -24,5 +24,10 @@ pipeline {
                 sh 'docker build -t training-demo-app:1.0 .'
             }
         }
+        stage('Trivy Scan') {
+            steps {
+                sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image training-demo-app:1.0'
+            }
+        }
     }
 }
